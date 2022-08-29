@@ -1,16 +1,21 @@
 import { AppDataSource } from "./data-source"
-import { Person } from "./entity/person"
 import express, {json} from "express"
-import {getAll, insertPerson } from "./services/people-service";
+import personService from "./services/people-service-repo";
 AppDataSource.initialize().then(async () => {
     const app = express();
+    const repo = personService();
     app.use(json());
 
     app.get("/", async (req, res) =>{
-        let result = await getAll();
+        let result = await repo.getPeople();
         console.log('result is:' , result);
         return res.send(result);
     })
+
+    app.get("/:id", (req, res) => {
+        let result = await getPerson()
+    })
+
 
     app.post("/", async (req, res) =>{
         let result = await insertPerson(req.body);
