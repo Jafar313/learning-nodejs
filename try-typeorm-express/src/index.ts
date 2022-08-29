@@ -1,14 +1,14 @@
 import { AppDataSource } from "./data-source"
-import { Person } from "./entity/Person"
-import express from "express"
+import { Person } from "./entity/person"
+import express, {json} from "express"
 import {getAll, insertPerson } from "./services/people-service";
-import bodyParser from "body-parser";
 AppDataSource.initialize().then(async () => {
     const app = express();
-    app.use(bodyParser.json());
+    app.use(json());
 
     app.get("/", async (req, res) =>{
         let result = await getAll();
+        console.log('result is:' , result);
         return res.send(result);
     })
 

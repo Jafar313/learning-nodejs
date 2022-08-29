@@ -1,8 +1,8 @@
 import {Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Person } from "./Person";
+import { Person } from "./person";
 
 @Entity("Holders")
-export class PersonHolder {
+export class Holder {
     @PrimaryGeneratedColumn()
     id: number
 

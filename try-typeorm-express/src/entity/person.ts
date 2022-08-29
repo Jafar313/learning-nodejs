@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm"
-import { PersonHolder } from "./PersonHolder"
+import { Holder } from "./holder"
 
 @Entity({name: "People"})
 export class Person {
@@ -19,7 +19,7 @@ export class Person {
     @Column()
     holderId: number
 
-    @ManyToOne(() => PersonHolder)
-    @JoinColumn({name: 'personHolderId'})
-    holder: PersonHolder
+    @ManyToOne(() => Holder)
+    @JoinColumn()
+    holder: Holder
 }

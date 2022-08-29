@@ -1,12 +1,10 @@
 import { AppDataSource } from "../data-source";
-import { Person } from "../entity/Person";
+import { Person } from "../entity/person";
 
 const peopleService = AppDataSource.getRepository(Person);
 
 export async function getAll() {
-    const reslut =  await peopleService.createQueryBuilder()
-        .select("");
-    return reslut;
+    return peopleService.find();
 }
 
 export async  function getPersonCars(){
