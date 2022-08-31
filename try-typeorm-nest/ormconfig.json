@@ -1,0 +1,7 @@
+[{
+  "type": "mssql",
+  "host": "127.0.0.1",
+  "username": "sa",
+  "password": "363823@S",
+  "database": "tempdb"
+}]
