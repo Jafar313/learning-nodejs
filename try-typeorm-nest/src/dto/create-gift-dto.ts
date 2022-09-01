@@ -1,5 +1,5 @@
 import { OmitType } from '@nestjs/mapped-types';
-import { giftEntity } from '../entities/gift.entity';
+import { GiftEntity } from '../entities/gift.Entity';
 
-export class CreateGiftDto extends OmitType(giftEntity, ['id', 'people']) {}
+export class CreateGiftDto extends OmitType(GiftEntity, ['id', 'people']) {}
 

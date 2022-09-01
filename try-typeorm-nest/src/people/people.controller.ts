@@ -7,6 +7,6 @@ export class PeopleController {
 
   @Get()
   async getPeople() {
-    return this._service.getPeople();
+    return this._service.getPeopleWithHolders();
   }
 }

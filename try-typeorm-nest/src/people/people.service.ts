@@ -10,6 +10,16 @@ export class PeopleService {
   ) {}
 
   async getPeople() {
-    return this._repository.find();
+    return this._repository.find({});
   }
+
+  async getPeopleWithHolders() {
+    const result = this._repository.find({
+      select: ['facilitator', 'firstName', 'lastName'],
+      relations: ['facilitator'],
+    });
+    console.log(result);
+    return result;
+  }
+
 }

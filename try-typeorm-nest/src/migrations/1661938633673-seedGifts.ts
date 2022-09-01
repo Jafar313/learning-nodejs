@@ -1,16 +1,18 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { giftEntity } from '../entities/gift.entity';
+import { GiftEntity } from '../entities/gift.Entity';
 import { CreateGiftDto } from '../dto/create-gift-dto';
 
 export class seedGifts1661938633673 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     const gifts: CreateGiftDto[] = [];
-    gifts.push({ giftName: 'gift1' });
-    await queryRunner.manager.save(giftEntity, gifts);
-    console.log('entire up method of first migration');
+
+    for (let i = 0; i < 100; i++) {
+      gifts.push({ giftName: `some gift ${Math.floor(Math.random() * 100)}` });
+    }
+    await queryRunner.manager.save(GiftEntity, gifts);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.manager.delete(giftEntity, '');
+    await queryRunner.manager.query('delete from gifts');
   }
 }

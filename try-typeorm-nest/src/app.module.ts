@@ -8,10 +8,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   imports: [
     PeopleModule,
     TypeOrmModule.forRoot({
+      host: '127.0.0.1',
+      database: 'tempdb',
+      username: 'sa',
+      password: '363823@S',
+      type: 'mssql',
+      autoLoadEntities: true,
+      synchronize: true,
       logging: true,
       extra: {
-        trustServerCertificate: true,
-        encrypt: false
+        encrypt: false,
       },
     }),
   ],

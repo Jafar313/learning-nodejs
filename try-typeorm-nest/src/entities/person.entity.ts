@@ -1,5 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { IsNumber, IsString, MinLength } from 'class-validator';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { IsArray, IsNumber, IsString, MinLength } from 'class-validator';
+import { GiftEntity } from './gift.Entity';
+import { FacilitatorEntity } from './facilitator.entity';
 
 @Entity('people')
 export class PersonEntity {
@@ -20,4 +22,9 @@ export class PersonEntity {
   @Column()
   @IsNumber()
   facilitatorId: number;
+
+  @ManyToOne(() => FacilitatorEntity, (f) => f.id)
+  facilitator: FacilitatorEntity;
+
+  gifts: GiftEntity[];
 }

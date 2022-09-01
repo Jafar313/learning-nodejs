@@ -4,7 +4,7 @@ import { PersonEntity } from './person.entity';
 import { JoinTable } from 'typeorm';
 
 @Entity('gifts')
-export class giftEntity {
+export class GiftEntity {
   @PrimaryGeneratedColumn()
   @IsNumber()
   id: number;
@@ -15,6 +15,5 @@ export class giftEntity {
   giftName: string;
 
   @ManyToMany(() => PersonEntity)
-  @JoinTable()
   people: PersonEntity[];
 }
