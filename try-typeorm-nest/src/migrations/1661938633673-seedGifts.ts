@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { GiftEntity } from '../entities/gift.Entity';
-import { CreateGiftDto } from '../dto/create-gift-dto';
+import { GiftEntity } from '../gifts/entities/gift.entity';
+import { CreateGiftDto } from '../gifts/dto/create-gift.dto';
 
 export class seedGifts1661938633673 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {

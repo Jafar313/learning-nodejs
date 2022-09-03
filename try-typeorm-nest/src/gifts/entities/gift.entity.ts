@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { IsNumber, IsString, MinLength } from 'class-validator';
-import { PersonEntity } from './person.entity';
+import { PersonEntity } from '../../people/entities/person.entity';
 import { JoinTable } from 'typeorm';
 
 @Entity('gifts')
@@ -14,6 +14,7 @@ export class GiftEntity {
   @MinLength(5)
   giftName: string;
 
-  @ManyToMany(() => PersonEntity)
+  @ManyToMany(() => PersonEntity, (p) => p.gifts)
+  @JoinTable()
   people: PersonEntity[];
 }

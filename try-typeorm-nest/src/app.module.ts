@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PeopleModule } from './people/people.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PeopleModule } from './people/people.module';
+import { GiftsModule } from './gifts/gifts.module';
+import { FacilitatorsModule } from './facilitators/facilitators.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         encrypt: false,
       },
     }),
+    GiftsModule,
+    FacilitatorsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

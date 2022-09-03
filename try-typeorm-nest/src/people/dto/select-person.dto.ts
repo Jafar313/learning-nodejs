@@ -1,3 +1,3 @@
 import { PersonEntity } from '../entities/person.entity';
 
-export class selectPersonDto extends PersonEntity {}
+export class SelectPersonDto extends PersonEntity {}
