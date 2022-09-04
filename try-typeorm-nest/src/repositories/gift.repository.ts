@@ -1,4 +1,4 @@
-import { EntityRepository, Repository } from 'typeorm';
+import { EntityRepository, QueryRunner, Repository } from 'typeorm';
 import { GiftEntity } from '../gifts/entities/gift.entity';
 
 @EntityRepository(GiftEntity)

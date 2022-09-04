@@ -1,11 +1,11 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { GiftsService } from './gifts.service';
+import { GiftService } from './gift.service';GiftService
 import { CreateGiftDto } from './dto/create-gift.dto';
 import { UpdateGiftDto } from './dto/update-gift.dto';
 
-@Controller('gifts')
+@Controller('gift')
 export class GiftsController {
-  constructor(private readonly giftsService: GiftsService) {}
+  constructor(private readonly giftsService: GiftService) {}
 
   @Post()
   create(@Body() createGiftDto: CreateGiftDto) {

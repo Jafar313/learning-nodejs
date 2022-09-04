@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { DynamicModule, Module } from '@nestjs/common';
 import { PeopleService } from './people.service';
 import { PeopleController } from './people.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -7,11 +7,10 @@ import { PersonEntity } from './entities/person.entity';
 import { FacilitatorEntity } from '../facilitators/entities/facilitator.entity';
 import { PersonRepository } from '../repositories/person.repository';
 import { UserLanguages } from '../constants';
-import { ConfigService } from '@nestjs/config';
 import { DevelopmentConfig } from '../configurations/development-config';
 import { ProductionConfig } from '../configurations/production-config';
 import { GeneralConfig } from '../configurations/general-config';
-import { isInstance } from 'class-validator';
+import { GiftsModule } from '../gifts/gifts.module';
 
 const useFactory = {
   provide: 'someFun',
@@ -33,19 +32,45 @@ const useValue = {
 const useFactoryWithDI = {
   provide: 'showInstantiation',
   useFactory: (service: PeopleService) => {
-    console.log('the showInstantiation has been provided and result is: ',service instanceof PeopleService);
+    console.log(
+      'the showInstantiation has been provided and result is: ',
+      service instanceof PeopleService,
+    );
   },
   inject: [PeopleService],
 };
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([GiftEntity, PersonEntity, FacilitatorEntity]),
+    TypeOrmModule.forFeature([PersonRepository, FacilitatorEntity]),
     DevelopmentConfig,
     ProductionConfig,
+    GiftsModule,
   ],
   controllers: [PeopleController],
-  providers: [PersonRepository, PeopleService, useValue, useClass, useFactory, useFactoryWithDI],
-  exports: [PeopleModule],
+  providers: [PeopleService, useValue, useClass, useFactory, useFactoryWithDI],
+  exports: [PeopleService],
 })
-export class PeopleModule {}
+export class PeopleModule {
+  // static register(options: Record<string, any>): DynamicModule {
+  //   return {
+  //     module: PeopleModule,
+  //     imports: [
+  //       TypeOrmModule.forFeature([GiftEntity, PersonEntity, FacilitatorEntity]),
+  //       DevelopmentConfig,
+  //       ProductionConfig,
+  //       GiftsModule,
+  //     ],
+  //     controllers: [PeopleController],
+  //     providers: [
+  //       PersonRepository,
+  //       PeopleService,
+  //       useValue,
+  //       useClass,
+  //       useFactory,
+  //       useFactoryWithDI,
+  //     ],
+  //     exports: [PeopleModule],
+  //   };
+  // }
+}

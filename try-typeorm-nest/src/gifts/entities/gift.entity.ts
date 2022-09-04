@@ -15,6 +15,6 @@ export class GiftEntity {
   giftName: string;
 
   @ManyToMany(() => PersonEntity, (p) => p.gifts)
-  @JoinTable()
+  @JoinTable({ name: 'peopleGifts' })
   people: PersonEntity[];
 }

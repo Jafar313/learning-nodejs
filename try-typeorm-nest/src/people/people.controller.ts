@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { PeopleService } from './people.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
+import { CreateGiftDto } from '../gifts/dto/create-gift.dto';
 
 @Controller('people')
 export class PeopleController {
@@ -12,6 +13,11 @@ export class PeopleController {
     return this.peopleService.create(createPersonDto);
   }
 
+  @Post(':id/gift')
+  createGift(@Param('id') id: string, @Body() gift: CreateGiftDto) {
+    return this.peopleService.createGift(+id, gift);
+  }
+
   @Get()
   findAll() {
     return this.peopleService.findAll();
@@ -20,6 +26,11 @@ export class PeopleController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.peopleService.findOne(+id);
+  }
+
+  @Get(':id/gifts')
+  findPersonGifts(@Param('id') id: string) {
+    return this.peopleService.findPersonGifts(+id);
   }
 
   @Patch(':id')
