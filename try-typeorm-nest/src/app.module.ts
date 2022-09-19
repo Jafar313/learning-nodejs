@@ -1,33 +1,36 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigType } from '@nestjs/config';
+import databaseConfig from './configurations/database.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { PeopleModule } from './people/people.module';
-import { GiftsModule } from './gifts/gifts.module';
-import { FacilitatorsModule } from './facilitators/facilitators.module';
-import { PeopleController } from './people/people.controller';
+import { ApiKeyGuard } from './common/guards/api-key.guard';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
-    PeopleModule,
-    // PeopleModule.register({
-    //   isProvided: true,
-    // }),
-    TypeOrmModule.forRoot({
-      host: '127.0.0.1',
-      database: 'tempdb',
-      username: 'sa',
-      password: '363823@S',
-      type: 'mssql',
-      autoLoadEntities: true,
-      synchronize: true,
-      logging: true,
-      extra: {
-        encrypt: false,
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule.forFeature(databaseConfig)],
+      inject: [databaseConfig.KEY],
+      useFactory: (dbConfig: ConfigType<typeof databaseConfig>) => {
+        return {
+          username: 'sa',
+          password: '363823@S',
+          database: dbConfig.database,
+          type: 'mssql',
+          host: 'localhost',
+          synchronize: true,
+          autoLoadEntities: true,
+          extra: {
+            encrypt: false,
+          },
+        };
       },
     }),
-    GiftsModule,
-    FacilitatorsModule,
+    PeopleModule.register(),
+    CommonModule,
   ],
   controllers: [AppController],
   providers: [AppService],

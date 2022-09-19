@@ -1,9 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Param, ParseIntPipe } from '@nestjs/common';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { PersonRepository } from '../repositories/person.repository';
-import { ConfigService } from '@nestjs/config';
-import { GeneralConfig } from '../configurations/general-config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { GeneralConfig } from '../configurations/general.config';
 import { CreateGiftDto } from '../gifts/dto/create-gift.dto';
 import { PersonEntity } from './entities/person.entity';
 import { GiftRepository } from '../repositories/gift.repository';
@@ -12,11 +12,11 @@ import { GiftService } from '../gifts/gift.service';
 @Injectable()
 export class PeopleService {
   constructor(
-    @Inject('DefaultLanguage') private readonly _language: string,
-    private readonly _configService: GeneralConfig,
     private readonly _personRepository: PersonRepository,
-    private readonly _giftService: GiftService,
-  ) {}
+    private readonly _configs: ConfigService,
+  ) {
+    console.log('**************the configuration in loaded and entire it is: ', _configs.get<string>('NODE_ENV'));
+  }
   create(personDto: CreatePersonDto) {
     console.log('imcoming personDto is: ', personDto);
     const person = new PersonEntity();
@@ -27,8 +27,9 @@ export class PeopleService {
     return this._personRepository.save(person);
   }
 
-  findAll() {
-    return this._configService.config;
+  async findAll() {
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    return 'find all people';
   }
 
   findOne(id: number) {
@@ -48,9 +49,7 @@ export class PeopleService {
   }
 
   async createGift(personId: number, giftDto: CreateGiftDto) {
-    const gift = await this._giftService.create(giftDto);
-    const lel = await this._giftService.addPersonGiftRelation(gift.id, personId);
-    console.log('rel has been added and its value is: ', lel);
-    return `The person id is #${personId} and it gifts is ${giftDto.giftName}`;
+
+    return `The person id is # and it gifts is `;
   }
 }

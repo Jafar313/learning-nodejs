@@ -19,7 +19,8 @@ export class GiftService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} gift`;
+    return `ThisNODE_ENV=DEVELOPMENT
+PORT=3000 action returns a #${id} gift`;
   }
 
   update(id: number, updateGiftDto: UpdateGiftDto) {
@@ -32,11 +33,5 @@ export class GiftService {
 
   async addPersonGiftRelation(giftId: number, personId: number) {
     console.log('inserting with addPersonGiftRelation...');
-    const gId = new MssqlParameter('giftId', 'numeric', giftId);
-    const pId = new MssqlParameter(personId, 'numeric');
-    return this._giftRepository.query(
-      'INSERT INTO peopleGifts(giftsId, peopleId) VALUES (@giftsId , @peopleId)',
-      [gId, pId],
-    );
   }
 }
